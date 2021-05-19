@@ -15,4 +15,15 @@ def test_account_creation(client):
     # client.post(...)
     # client.get(...)
     # https://flask.palletsprojects.com/en/1.1.x/testing/
-    pass
+    request = client.post('/accounts/test')
+    assert request.status_code == 200
+    assert request.json['name'] == 'test'
+
+def test_account_retrieve(client):
+    # Use the client to make requests e.g.:
+    # client.post(...)
+    # client.get(...)
+    # https://flask.palletsprojects.com/en/1.1.x/testing/
+    request = client.get('/accounts/test')
+    assert request.status_code == 200
+    assert request.json['name'] == 'test'

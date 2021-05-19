@@ -44,5 +44,27 @@ def test_cannot_modify_accounts_set(bank):
     assert len(bank.accounts) == 0
 
 
-# TODO: Add unit tests for bank.add_funds()
+def test_add_5_funds(bank):
+    bank.create_account('Test')
+    bank.add_funds('Test',5)
 
+    assert len(bank.transactions) == 1
+    assert bank.transactions[0].amount > 0
+    
+def test_add_negative_funds(bank):
+    bank.create_account('Test')
+    bank.add_funds('Test',-5)
+
+    assert len(bank.transactions) == 0
+
+def test_add_zero_funds(bank):
+    bank.create_account('Test')
+    bank.add_funds('Test',0)
+
+    assert len(bank.transactions) == 0
+
+def test_add_string_funds(bank):
+    bank.create_account('Test')
+
+    with pytest.raises(TypeError) as e_info:
+        bank.add_funds('Test','string')
